@@ -1,10 +1,12 @@
 /**********************************************************************************************************
-  10kHz to 225MHz VFO / RF Generator with Si5351 and Arduino Nano, with Intermediate Frequency (IF) offset
+  VFO / RF Generator with Si5351 and Arduino Nano, with Intermediate Frequency (IF) offset
   (+ or -), RX/TX Selector for QRP Transceivers, Band Presets and Bargraph S-Meter. See the schematics for
   wiring and README.txt for details. By J. CesarSound - ver 2.0 - Feb/2021.
   SH1106 libraries Contribution of Mr. Pablo Woiz (LU1AGH)
   Fuente: https://www.hackster.io/CesarSound/10khz-to-225mhz-vfo-rf-generator-with-si5351-version-2-bfa619
-  ** UPDATE 06/AGO/2024 ** by Nicolás Tarquini v3.1
+  
+  ** UPDATE 06/AGO/2024 ** by Nicolás Tarquini LU5FB OP 12
+  v3.1
   - Added new configs for OLED SH1106 1.3"
   - Fixed RX/TX. TX was always transmitting.
   - Removed Unnecessary band
