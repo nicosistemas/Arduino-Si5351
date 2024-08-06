@@ -207,7 +207,7 @@ void inc_preset() {
 
 void bandpresets() {
   switch (count)  {
-    case 1: freq = 100000; tunegen(); break;
+    case 1: freq = 145000000; tunegen(); break;
     case 2: freq = 800000; break;
     case 3: freq = 3650000; break;
     case 4: freq = 7000000; break;
