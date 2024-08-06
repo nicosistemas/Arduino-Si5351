@@ -42,4 +42,6 @@ void setup() {
   
 ...
 ```
+### LED
 
+- Led Rojo con resistencia 470 ohms conectado al pin D9 to GND. Enciende cuando el VFO está transmitiendo, cuando el pulsador 2 activa de RX a TX
