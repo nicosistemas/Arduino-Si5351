@@ -9,6 +9,7 @@
   - Fixed RX/TX. TX was always transmitting.
   - Removed Unnecessary band
   - Fixed frecuency display
+  - Added LED red on pin D9 when TX is on! D9 to R470ohms to GND
 ***********************************************************************************************************/
 
 //Libraries
@@ -46,6 +47,7 @@ byte count, x, xo;
 bool sts = 0;
 unsigned int period = 100;
 unsigned long time_now = 0;
+const int ledPin = 9;    // LED pin D9
 
 ISR(PCINT2_vect) {
   char result = r.process();
@@ -75,14 +77,14 @@ void setup() {
   display.clearDisplay();
   display.setTextColor(WHITE);
   display.display();
-
+  pinMode(ledPin, OUTPUT); // LED cuando está transmitiendo TX
   pinMode(2, INPUT_PULLUP);
   pinMode(3, INPUT_PULLUP);
   pinMode(tunestep, INPUT_PULLUP);
   pinMode(band, INPUT_PULLUP);
   pinMode(rx_tx, INPUT_PULLUP);
 
-  statup_text();  //Si queda congelada la pantalla inicial, comentar esta línea
+  statup_text();  //If you hang on startup, comment
 
   si5351.init(SI5351_CRYSTAL_LOAD_8PF, 0, 0);
   si5351.set_correction(cal, SI5351_PLL_INPUT_XO);
@@ -111,6 +113,13 @@ void setup() {
 }
 
 void loop() {
+
+  if (interfreq == 0) {
+    digitalWrite(ledPin, HIGH);    // LED on
+  } else {
+    digitalWrite(ledPin, LOW);     // LED off
+  }
+
   if (freqold != freq) {
     time_now = millis();
     tunegen();
