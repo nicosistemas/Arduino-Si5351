@@ -33,6 +33,7 @@
 #define band       A1        //(Pulsador 1) - The pin used by BAND selector push button. 
 #define rx_tx      A2        //(Pulsador 2) - The pin used by RX / TX selector switch, RX = switch open, TX = switch closed to GND. When in TX, the IF value is not considered.
 #define adc        A3        //The pin used by Signal Meter A/D input.
+//#define cwk        A6        //Pin for CW Keying (PULLUP input, so it is activated when conected to the GND).
 //------------------------------------------------------------------------------------------------------------
 
 Rotary r = Rotary(2, 3);
@@ -85,6 +86,8 @@ void setup() {
   pinMode(tunestep, INPUT_PULLUP);
   pinMode(band, INPUT_PULLUP);
   pinMode(rx_tx, INPUT_PULLUP);
+  //pinMode(cwk, INPUT_PULLUP);
+
 
   statup_text();  //If you hang on startup, comment
 
@@ -110,7 +113,7 @@ void setup() {
 
   count = BAND_INIT;
   bandpresets();
-  stp = 4;
+  stp = 4;  // Frecuencia en la que inicia: 10 kHz
   setstep();
 }
 
@@ -156,6 +159,11 @@ void loop() {
     sts = 1;
   } else sts = 0;
 
+  //  if (digitalRead(cwk) == LOW) {
+  //  time_now = (millis() + 300);
+  //  sts = 1;
+  //} else sts = 0;
+
   if ((time_now + period) > millis()) {
     displayfreq();
     layout();
@@ -165,6 +173,8 @@ void loop() {
 
 void tunegen() {
   si5351.set_freq((freq + (interfreq * 1000ULL)) * 100ULL, SI5351_CLK0);
+  //si5351.set_freq((7098 * 1000ULL) * 100ULL, SI5351_CLK1);              //Define fixed value of intermediate frequency of CLK1 (7098kHz)
+  //si5351.set_freq((7102 * 1000ULL) * 100ULL, SI5351_CLK2);              //Define fixed value of intermediate frequency of CLK2 (7102kHz) 
 }
 
 void displayfreq() {
