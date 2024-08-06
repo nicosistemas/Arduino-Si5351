@@ -4,7 +4,7 @@
   wiring and README.txt for details. By J. CesarSound - ver 2.0 - Feb/2021.
   SH1106 libraries Contribution of Mr. Pablo Woiz (LU1AGH)
   Fuente: https://www.hackster.io/CesarSound/10khz-to-225mhz-vfo-rf-generator-with-si5351-version-2-bfa619
-  ** UPDATE 06/AGO/2024 ** by Nicolás Tarquini v3.0
+  ** UPDATE 06/AGO/2024 ** by Nicolás Tarquini v3.1
   - Added new configs for OLED SH1106 1.3"
   - Fixed RX/TX. TX was always transmitting.
   - Removed Unnecessary band
