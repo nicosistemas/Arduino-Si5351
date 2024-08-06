@@ -3,9 +3,7 @@
   (+ or -), RX/TX Selector for QRP Transceivers, Band Presets and Bargraph S-Meter. See the schematics for
   wiring and README.txt for details. By J. CesarSound - ver 2.0 - Feb/2021.
   SH1106 libraries Contribution of Mr. Pablo Woiz (LU1AGH)
-  
   Fuente: https://www.hackster.io/CesarSound/10khz-to-225mhz-vfo-rf-generator-with-si5351-version-2-bfa619
-
   ** UPDATE 06/AGO/2024 ** by Nicolás Tarquini v3.0
   - Added new configs for OLED SH1106 1.3"
   - Fixed RX/TX. TX was always transmitting.
@@ -84,7 +82,7 @@ void setup() {
   pinMode(band, INPUT_PULLUP);
   pinMode(rx_tx, INPUT_PULLUP);
 
-  statup_text();  //If you hang on startup, comment
+  statup_text();  //Si queda congelada la pantalla inicial, comentar esta línea
 
   si5351.init(SI5351_CRYSTAL_LOAD_8PF, 0, 0);
   si5351.set_correction(cal, SI5351_PLL_INPUT_XO);
@@ -92,6 +90,15 @@ void setup() {
   si5351.output_enable(SI5351_CLK0, 1);                  //1 - Enable / 0 - Disable CLK
   si5351.output_enable(SI5351_CLK1, 0);
   si5351.output_enable(SI5351_CLK2, 0);
+
+  //si5351.init(SI5351_CRYSTAL_LOAD_8PF, 0, 0);
+  //si5351.set_correction(cal, SI5351_PLL_INPUT_XO);
+  //si5351.drive_strength(SI5351_CLK0, SI5351_DRIVE_8MA);   //Power oscillador 0
+  //si5351.drive_strength(SI5351_CLK1, SI5351_DRIVE_2MA);   //Power oscillador 1
+  //si5351.drive_strength(SI5351_CLK2, SI5351_DRIVE_2MA);   //Power oscillador 2
+  //si5351.output_enable(SI5351_CLK0, 1);                   //1 - Enable / 0 - Disable CLK
+  //si5351.output_enable(SI5351_CLK1, cwk);
+  //si5351.output_enable(SI5351_CLK2, 1);
 
   PCICR |= (1 << PCIE2);
   PCMSK2 |= (1 << PCINT18) | (1 << PCINT19);
@@ -329,6 +336,6 @@ void statup_text() {
   display.setCursor(16, 20);
   display.print("Nicolas Tarquini");
   display.setCursor(14, 36);
-  display.setTextSize(3); display.print("LU2FTI"); //Licencia inventada porque aún no poseo soy aspitante de LU5FB OP 12
+  display.setTextSize(3); display.print("LU_F__"); //Licencia inventada porque aún no poseo soy aspitante de LU5FB OP 12
   display.display(); delay(2000);
 }
