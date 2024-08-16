@@ -9,8 +9,8 @@ LCD 16x1
  * LCD D6 pin to digital pin 6
  * LCD D7 pin to digital pin 7
  * LCD R/W pin to ground
- * LCD VSS pin to ground
- * LCD VCC (GND) pin to 5V
+ * LCD GND pin to ground
+ * LCD VCC pin to 5V
 */
 
 #include <LiquidCrystal.h>
