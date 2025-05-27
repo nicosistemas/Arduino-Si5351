@@ -12,6 +12,19 @@
   - Removed Unnecessary band
   - Fixed frecuency display
   - Added LED red on pin D9 when TX is on! D9 to R470ohms to GND
+
+
+  TO LSB and USB:
+
+
+Let's activate the CLK1 (the CLK is count 0, 1 and 2, the CLK0 is used by VFO) to generate 455kHz:
+Inside the void setup():
+Line 109 change it to: si5351.output_enable(SI5351_CLK1, 1);
+and add this line: si5351.drive_strength(SI5351_CLK1, SI5351_DRIVE_2MA);
+In the line 188 void tunegen() add: si5351.set_freq((455 * 1000ULL) * 100ULL, SI5351_CLK1);
+The value 455 corresponds to 455kHz, but you can change it to other frequency of your choice. Note that the CLK1 will output a fixed signal of 455kHz.
+
+
 ***********************************************************************************************************/
 
 //Libraries
