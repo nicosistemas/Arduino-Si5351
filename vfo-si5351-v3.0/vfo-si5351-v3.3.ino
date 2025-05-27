@@ -203,16 +203,16 @@ void inc_preset() {
 
 void bandpresets() {
   switch (count) {
-    #case 1: freq = 145000000; break;
-    #case 2: freq = 800000; break;
-    #case 3: freq = 3650000; break;
+    //case 1: freq = 145000000; break;
+    //case 2: freq = 800000; break;
+    //case 3: freq = 3650000; break;
     case 1: freq = 7000000; usb_mode = false; break;
     case 2: freq = 10000000; usb_mode = true; break;
     case 3: freq = 14000000; usb_mode = true; break;
     //para FT8
-    #case 4: freq = 7074000; usb_mode = true; break;
-    #case 5: freq = 10136000; usb_mode = true; break;
-    #case 6: freq = 14074000; usb_mode = true; break;
+    //case 4: freq = 7074000; usb_mode = true; break;
+    //case 5: freq = 10136000; usb_mode = true; break;
+    //case 6: freq = 14074000; usb_mode = true; break;
     //
   }
   si5351.pll_reset(SI5351_PLLA);
@@ -224,16 +224,16 @@ void bandlist() {
   display.setTextSize(2);
   display.setCursor(0, 25);
 
-  ##if (count == 1) display.print("GEN");
-  ##if (count == 2) display.print("AM");
-  ##if (count == 3) display.print("80m");
+  //if (count == 1) display.print("GEN");
+  //if (count == 2) display.print("AM");
+  //if (count == 3) display.print("80m");
   if (count == 1) display.print("40m");
   if (count == 2) display.print("30m");
   if (count == 3) display.print("20m");
   // para FT8
-  #if (count == 4) display.print("40m FT8");
-  #if (count == 5) display.print("30m FT8");
-  #if (count == 6) display.print("20m FT8");
+  //if (count == 4) display.print("40m FT8");
+  //if (count == 5) display.print("30m FT8");
+  //if (count == 6) display.print("20m FT8");
   //
   if (count == 1) interfreq = 0;
   else if (!sts) interfreq = IF;
