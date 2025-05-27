@@ -6,16 +6,16 @@
 #include <Adafruit_GFX.h>
 
 #define OLED_RESET 4
-#define IF         2000
+#define IF         2000  // IF en kHz (2 MHz)
 #define BAND_INIT  4
-#define XT_CAL_F   25000  // ACTUALIZADO
+#define XT_CAL_F   25000  // CRISTAL CALIBRACIÓN POR DEFECTO
 #define S_GAIN     303
 
-#define tunestep   A0    // Encoder SW
-#define band       A1
+#define tunestep   A0    // Encoder SW - PULSACION CORTA CAMBIA STEP, PULSACIÓN LARGA MENÚ CALIBRACIÓN CRISTAL
+#define band       A1    // CAMBIA BANDA
 #define rx_tx      A2
-#define mode_pin   A3    // ACTUALIZADO
-#define adc        A6    // ACTUALIZADO
+#define mode_pin   A3    // CAMBIA EL MODO LSB USB
+#define adc        A6    // SMETER
 
 Rotary r = Rotary(2, 3);
 Adafruit_SH1106 display(OLED_RESET);
@@ -91,6 +91,15 @@ void setup() {
   si5351.drive_strength(SI5351_CLK0, SI5351_DRIVE_8MA);
   si5351.output_enable(SI5351_CLK0, 1);
 
+  //si5351.init(SI5351_CRYSTAL_LOAD_8PF, 0, 0);
+  //si5351.set_correction(cal, SI5351_PLL_INPUT_XO);
+  //si5351.drive_strength(SI5351_CLK0, SI5351_DRIVE_8MA);   //Power oscillador 0
+  //si5351.drive_strength(SI5351_CLK1, SI5351_DRIVE_2MA);   //Power oscillador 1
+  //si5351.drive_strength(SI5351_CLK2, SI5351_DRIVE_2MA);   //Power oscillador 2
+  //si5351.output_enable(SI5351_CLK0, 1);                   //1 - Enable / 0 - Disable CLK
+  //si5351.output_enable(SI5351_CLK1, cwk);
+  //si5351.output_enable(SI5351_CLK2, 1);
+
   PCICR |= (1 << PCIE2);
   PCMSK2 |= (1 << PCINT18) | (1 << PCINT19);
   sei();
@@ -154,6 +163,12 @@ void tunegen() {
   si5351.set_freq((freq + (if_offset * 1000ULL)) * 100ULL, SI5351_CLK0);
 }
 
+/**********************************************************************************************************
+BATIDO O MEZCLA: ej. LSB
+if_offset = -2000
+(freq + if_offset * 1000) = (7100 - 2000000) = -1992900 kHz
+***********************************************************************************************************/
+
 void displayfreq() {
   unsigned int m = freq / 1000000;
   unsigned int k = (freq % 1000000) / 1000;
@@ -198,6 +213,7 @@ void bandpresets() {
     #case 4: freq = 7074000; usb_mode = true; break;
     #case 5: freq = 10136000; usb_mode = true; break;
     #case 6: freq = 14074000; usb_mode = true; break;
+    //
   }
   si5351.pll_reset(SI5351_PLLA);
   stp = 1;
@@ -218,7 +234,7 @@ void bandlist() {
   #if (count == 4) display.print("40m FT8");
   #if (count == 5) display.print("30m FT8");
   #if (count == 6) display.print("20m FT8");
-
+  //
   if (count == 1) interfreq = 0;
   else if (!sts) interfreq = IF;
 }
