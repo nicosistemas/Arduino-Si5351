@@ -113,7 +113,7 @@ void setup() {
 
   count = BAND_INIT;
   bandpresets();
-  stp = 4;  // Frecuencia en la que inicia: 10 kHz
+  stp = 4;  // Frecuencia en la que inicia: 7 kHz
   setstep();
 }
 
@@ -357,6 +357,6 @@ void statup_text() {
   display.setCursor(16, 20);
   display.print("Nicolas Tarquini");
   display.setCursor(14, 36);
-  display.setTextSize(3); display.print("LU_F__"); //Licencia inventada porque aún no poseo soy aspitante de LU5FB OP 12
+  display.setTextSize(3); display.print("LU2FTI");
   display.display(); delay(2000);
 }
